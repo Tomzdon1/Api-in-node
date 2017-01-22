@@ -5,20 +5,20 @@ var mongoose = require('mongoose');
 
 app.use(bodyParser.json());
 
-app.use(function(req, res, next) {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
-    next();
-});
-
+// app.use(function(req, res, next) {
+//     res.header("Access-Control-Allow-Origin", "*");
+//     res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+//     next();
+// });
 Genre = require('./models/genre.js');
 Book = require('./models/book.js');
-Miejscowosc = require('./models/miejscowosci.js');
+City = require('./models/city.js');
 //Connect to mongoose
 mongoose.connect('mongodb://localhost/api');
 var db = mongoose.connection;
 
 app.get('/',function(req,res){
+    
     res.send('Hellooo World');
 });
 app.get('/api/genres', function(req,res){
@@ -63,12 +63,13 @@ app.post('/api/books', function(req,res){
         res.json(book);
     });
 });
-app.get('/api/miejscowosci', function(req,res){
-    Miejscowosc.getMiejscowosc(function(err,miejscowosci){
-        if(err) {
+app.get('/api/city',function(req,res){
+    
+    City.getCities(function(err,city){
+        if(err){
             throw err;
         }
-        res.json(miejscowosci);
+        res.json(city);
     });
 });
 app.listen(4000);
